@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Toko Miiko</title>
+
+  <!-- Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Poppins:wght@400;600&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="StyleAlfia.css">
+  <!-- Bootstrap-->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="header">
+
+  <!-- TOP NAV -->
+  <div class="top-nav">
+
+    <div class="top-left">
+      <span>🌸 Welcome to MiikoWorld!</span>
+    </div>
+
+    <div class="top-right">
+      <a href="#">⭐ New Arrival</a>
+      <a href="#">🎬 Miiko TV</a>
+      <a href="#">💌 Contact</a>
+    </div>
+
+  </div>
+
+  <!-- MAIN HEADER -->
+  <div class="main-header">
+
+    <!-- LOGO -->
+    <div class="logo-area">
+
+      <img src="Logo bulat miiko.png" class="logo-img">
+
+      <div class="logo-text">
+        <h2>MiikoWorld</h2>
+        <p>Kocchi Muite! Miiko 💖</p>
+      </div>
+
+    </div>
+
+    <!-- CATEGORY -->
+    <div class="category-dropdown">
+      📚 Kategori ▼
+    </div>
+
+    <!-- SEARCH -->
+    <div class="search-container">
+      <input type="text" placeholder="Cari buku Miiko favoritmu...">
+    </div>
+
+    <!-- ACTION -->
+    <div class="header-actions">
+
+      <div class="icon-btn">
+        💖
+      </div>
+
+      <a href="CHECK.html" class="icon-btn">
+  🛒
+</a>
+
+      <button class="btn-masuk">
+        Masuk
+      </button>
+
+      <button class="btn-daftar">
+        Daftar
+      </button>
+
+    </div>
+
+  </div>
+
+</header>
+
+  <!-- ================= PROFILE ================= -->
+  <div class="header-profile">
+
+    <img src="Logo Miiko.jpg" class="profile-img">
+
+    <h2>Hi, Miiko!</h2>
+
+    <p>Selamat datang di toko buku!</p>
+
+    <p>Kocchimuite! Miiko (こっちむいて! みい子)</p>
+
+  </div>
+
+  <!-- ================= MINI CART ================= -->
+<div class="mini-cart">
+
+  <h3>🛒 Keranjang Miiko</h3>
+
+  <div id="cartItems"></div>
+
+  <hr>
+
+  <h4>Total: Rp <span id="cartTotal">0</span></h4>
+
+  <a href="CHECK OUT.html">
+    <button>Checkout</button>
+  </a>
+
+</div>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+
+  // LANGUAGE
+  function setLanguage(lang) {
+    document.getElementById("languageModal").style.display = "none";
+  }
+
+  // ADD TO CART
+  function addToCart(nama, harga, gambar){
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    let existing = cart.find(item => item.nama === nama);
+
+    if(existing){
+      existing.qty += 1;
+    }else{
+      cart.push({
+        nama: nama,
+        harga: harga,
+        gambar: gambar,
+        qty: 1
+      });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    renderCart();
+  }
+
+  // RENDER CART
+  function renderCart(){
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const cartItems = document.getElementById("cartItems");
+    const cartTotal = document.getElementById("cartTotal");
+
+    if(!cartItems) return;
+
+    cartItems.innerHTML = "";
+
+    let total = 0;
+
+    cart.forEach(item => {
+
+      total += item.harga * item.qty;
+
+      cartItems.innerHTML += `
+        <div class="cart-item">
+
+          <img src="${item.gambar}">
+
+          <div>
+            <p>${item.nama}</p>
+
+            <small>
+              ${item.qty} x Rp ${item.harga.toLocaleString('id-ID')}
+            </small>
+          </div>
+
+        </div>
+      `;
+    });
+
+    cartTotal.textContent = total.toLocaleString('id-ID');
+  }
+
+  renderCart();
+
+</script>
+  <!-- ================= VOUCHER MIIKO ================= -->
+<div class="voucher-wrapper">
+
+  <!-- Voucher 1 -->
+  <div class="voucher-card">
+
+    <div class="voucher-left">
+      <img src="Buku miiko 1.jpg" alt="">
+      <h4>Miiko Store</h4>
+    </div>
+
+    <div class="voucher-right">
+      <h2>Diskon 20%</h2>
+      <p>Min. Belanja Rp100.000</p>
+
+      <span class="voucher-tag">Official</span>
+
+      <h5>Berlaku hingga 30 Mei</h5>
+
+      <button>Klaim Voucher</button>
+
+      <a href="#">S&K</a>
+    </div>
+
+  </div>
+
+  <!-- Voucher 2 -->
+  <div class="voucher-card">
+
+    <div class="voucher-left">
+      <img src="Buku miiko 2.jpg" alt="">
+      <h4>Festival Miiko</h4>
+    </div>
+
+    <div class="voucher-right">
+      <h2>Diskon Rp15RB</h2>
+      <p>Min. Belanja Rp75.000</p>
+
+      <span class="voucher-tag">Limited</span>
+
+      <h5>Berlaku hingga 15 Juni</h5>
+
+      <button>Klaim Voucher</button>
+
+      <a href="#">S&K</a>
+    </div>
+
+  </div>
+
+  <!-- Voucher 3 -->
+  <div class="voucher-card">
+
+    <div class="voucher-left">
+      <img src="Buku miiko 3.jpg" alt="">
+      <h4>Happy Miiko Day</h4>
+    </div>
+
+    <div class="voucher-right">
+      <h2>Gratis Ongkir</h2>
+      <p>Tanpa minimum belanja</p>
+
+      <span class="voucher-tag">Special</span>
+
+      <h5>Berlaku hingga 1 Juli</h5>
+
+      <button>Klaim Voucher</button>
+
+      <a href="#">S&K</a>
+    </div>
+
+  </div>
+
+</div>
+
+  <!-- ================= HERO ================= -->
+  <div class="main-section">
+
+    <div class="hero">
+
+      <!-- Left Hero -->
+      <div class="hero-left">
+
+        <video autoplay muted loop>
+          <source src="Kocchi Muite! Miiko Episode 1 (こっちむいて!みい子 第1話) (2) (1) (1).mp4" type="video/mp4">
+        </video>
+
+        <div class="overlay">
+          <span class="badge">Special Offer</span>
+          <h2>🎀 Festival Miiko</h2>
+          <p>Diskon hingga 30%</p>
+
+        <!-- Right Hero -->
+      <div class="hero-right">
+
+      <img src="Banner 2 (bner).png" alt="Banner Miiko">
+      </div>
+    </div>
+
+<!-- ================= VOUCHER MIIKO ================= -->
+<div class="voucher-wrapper">
+
+  <!-- Voucher 1 -->
+  <div class="voucher-card">
+
+    <div class="voucher-left">
+      <img src="Buku miiko 29.jpg" alt="">
+      <h4>Miiko Store</h4>
+    </div>
+
+    <div class="voucher-right">
+      <h2>Diskon 29%</h2>
+      <p>Min. Belanja Rp29.000</p>
+
+      <span class="voucher-tag">Official</span>
+
+      <h5>Berlaku hingga 29 September</h5>
+
+      <button>Klaim Voucher</button>
+
+      <a href="#">S&K</a>
+    </div>
+
+  </div>
+
+  <!-- Voucher 2 -->
+  <div class="voucher-card">
+
+    <div class="voucher-left">
+      <img src="Buku miiko 2.jpg" alt="">
+      <h4>Festival Miiko</h4>
+    </div>
+
+    <div class="voucher-right">
+      <h2>Diskon Rp15RB</h2>
+      <p>Min. Belanja Rp75.000</p>
+
+      <span class="voucher-tag">Limited</span>
+
+      <h5>Berlaku hingga 15 Juni</h5>
+
+      <button>Klaim Voucher</button>
+
+      <a href="#">S&K</a>
+    </div>
+
+  </div>
+
+  <!-- Voucher 3 -->
+  <div class="voucher-card">
+
+    <div class="voucher-left">
+      <img src="Buku miiko 3.jpg" alt="">
+      <h4>Happy Miiko Day</h4>
+    </div>
+
+    <div class="voucher-right">
+      <h2>Gratis Ongkir</h2>
+      <p>Tanpa minimum belanja</p>
+
+      <span class="voucher-tag">Special</span>
+
+      <h5>Berlaku hingga 1 Juli</h5>
+
+      <button>Klaim Voucher</button>
+
+      <a href="#">S&K</a>
+    </div>
+
+  </div>
+
+</div>
+      </div>
+
+      <!-- Right Hero -->
+      <div class="hero-right">
+        <img src="Banner 2 (bner).png" alt="Miiko atas">
+        <img src="Banner 3.png" alt="Miiko bawah">
+      </div>
+
+    </div>
+
+  </div>
+
+<!-- ================= LANGUAGE MODAL ================= -->
+<div id="languageModal" class="language-modal">
+
+  <div class="language-popup">
+
+    <h2>Pilih bahasa Anda</h2>
+
+    <button class="btn btn-danger" onclick="setLanguage('id')">
+      Bahasa Indonesia
+    </button>
+
+    <button class="btn btn-warning" onclick="setLanguage('jp')">
+      日本語
+    </button>
+
+    <button class="btn btn-primary" onclick="setLanguage('en')">
+      English
+    </button>
+
+  </div>
+
+</div>
+
+  <!-- ================= MEMBER POPUP ================= -->
+<div class="member-popup" id="memberPopup">
+
+  <div class="member-content">
+
+    <!-- CLOSE -->
+    <span class="close-member" onclick="closeMemberPopup()">
+      ✖
+    </span>
+
+    <!-- ISI -->
+    <h2>🌸 Gabung Member MiikoWorld!</h2>
+
+    <p>
+      Dapatkan info volume terbaru,
+      promo spesial, dan koleksi favorit Miiko 💖
+    </p>
+
+    <img src="Pop up member miiko.png" class="member-img">
+
+    <!-- INPUT -->
+    <input type="text" placeholder="Masukkan nama kamu...">
+
+    <input type="email" placeholder="Masukkan email kamu...">
+
+    <!-- BUTTON -->
+    <button onclick="joinMember()">
+      Gabung Sekarang ✨
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+function closeMemberPopup(){
+
+  document.getElementById(
+    "memberPopup"
+  ).style.display = "none";
+
+}
+
+function joinMember(){
+
+  alert(
+    "🎀 Selamat bergabung di MiikoWorld Member! 💖"
+  );
+
+  document.getElementById(
+    "memberPopup"
+  ).style.display = "none";
+
+}
+
+window.onload = function(){
+
+  setTimeout(() => {
+
+    document.getElementById(
+      "memberPopup"
+    ).style.display = "flex";
+
+  }, 1000);
+
+}
+
+</script>
+
+  <!-- ================= MENU ================= -->
+  <div class="menu-miiko">
+
+    <div class="menu-item">
+      <div class="icon">📚</div>
+      <p>Semua Volume</p>
+    </div>
+
+    <div class="menu-item">
+      <div class="icon">⭐</div>
+      <p>Best Seller</p>
+    </div>
+
+    <div class="menu-item">
+      <div class="icon">🔥</div>
+      <p>Promo Miiko</p>
+    </div>
+
+    <div class="menu-item">
+      <div class="icon">🎒</div>
+      <p>Kehidupan Sekolah</p>
+    </div>
+
+    <div class="menu-item">
+      <div class="icon">👧</div>
+      <p>Karakter Miiko</p>
+    </div>
+
+    <div class="menu-item">
+      <div class="icon">😂</div>
+      <p>Cerita Lucu</p>
+    </div>
+
+    <div class="menu-item">
+      <div class="icon">🎁</div>
+      <p>Bundle Hemat</p>
+    </div>
+
+    <div class="menu-item">
+      <div class="icon">🚚</div>
+      <p>Gratis Ongkir</p>
+    </div>
+
+    <div class="menu-item">
+      <div class="icon">💖</div>
+      <p>Favorit</p>
+    </div>
+
+    <div class="menu-item">
+      <div class="icon">🎉</div>
+      <p>Semua Promo</p>
+    </div>
+
+  </div>
+
+<div class="promo-container">
+  <div class="promo-card">
+    <h3>Special Offer</h3>
+    <h1>20%</h1>
+    <button>Lihat Promo</button>
+  </div>
+  <div class="promo-card">
+    <h3>🌞 Summer</h3>
+    <h1>15%</h1>
+    <button>Lihat Promo</button>
+  </div>
+  <div class="promo-card">
+    <h3>❄️ Winter</h3>
+    <h1>10%</h1>
+    <button>Lihat Promo</button>
+  </div>
+  <div class="promo-card">
+    <h3>🍂 Autumn</h3>
+    <h1>25%</h1>
+    <button>Lihat Promo</button>
+  </div>
+  <div class="promo-card">
+    <h3>🌸 Spring</h3>
+    <h1>5%</h1>
+    <button>Lihat Promo</button>
+  </div>
+</div>
+
+<!-- ================= MAIN ================= -->
+<div class="main-layout">
+<!-- ========= SIDEBAR ========= -->
+<div class="sidebar-wrapper">
+
+  <!-- SIDEBAR MENU -->
+  <div class="sidebar">
+    <h3>Enjoy, Miiko!</h3>
+
+    <ul>
+      <li>
+        <span class="dot-pink"></span>
+        <span class="menu-text">Beranda</span>
+      </li>
+
+      <li>
+        <span class="dot-pink"></span>
+        <span class="menu-text">Product</span>
+      </li>
+
+      <li>
+        <span class="dot-pink"></span>
+        <span class="menu-text">Promo</span>
+      </li>
+
+      <li>
+        <span class="dot-pink"></span>
+        <span class="menu-text">Favorite</span>
+      </li>
+
+      <li>
+        <span class="dot-pink"></span>
+        <span class="menu-text">Pesanan</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- PROMO BOX -->
+  <div class="promo-box">
+    <h4>Special Offer</h4>
+    <p>Diskon 20%</p>
+  </div>
+
+  <div class="promo-box">
+    <h4>Summer Offer</h4>
+    <p>Diskon 15%</p>
+  </div>
+
+  <div class="promo-box">
+    <h4>Winter Offer</h4>
+    <p>Diskon 10%</p>
+  </div>
+
+  <div class="promo-box">
+    <h4>Autumn Offer</h4>
+    <p>Diskon 25%</p>
+  </div>
+
+  <div class="promo-box">
+    <h4>Spring Offer</h4>
+    <p>Diskon 5%</p>
+  </div>
+
+
+<!-- ========= PESAN FOUNDER ========= -->
+<div class="founder-message">
+
+  <h3>💌 Pesan dari Pecinta Miiko</h3>
+
+  <p>
+    Sejak kecil aku suka Miiko karena ceritanya sederhana tapi hangat. 
+    Dunia Miiko selalu terasa nyaman, lucu, dan penuh hal kecil yang bikin bahagia. 
+    Dari Miiko aku belajar kalau persahabatan, keluarga, dan menikmati hari-hari biasa itu ternyata sangat berharga 🌸
+  </p>
+
+</div>
+
+<!-- ========= QUOTE MIIKO ========= -->
+<div class="miiko-quote">
+
+  <h3>🌸 Kata Miiko Hari Ini</h3>
+
+  <p>
+    「今日も元気いっぱい！」🌸<br>
+    <small>Hari ini juga penuh semangat!</small>
+  </p>
+
+  <p>
+    「失敗しても大丈夫だよ！」💖<br>
+    <small>Tidak apa-apa kalau gagal!</small>
+  </p>
+
+  <p>
+    「笑顔がいちばん！」✨<br>
+    <small>Senyum itu yang paling penting!</small>
+  </p>
+
+  <p>
+    「友だちといると楽しいね！」🎀<br>
+    <small>Bersama teman itu menyenangkan ya!</small>
+  </p>
+
+  <p>
+    「毎日がたからもの！」🌈<br>
+    <small>Setiap hari adalah harta berharga!</small>
+  </p>
+
+</div>
+
+</body>
+</html>
+  <!-- ========= REVIEW ========= -->
+  <div class="review-box">
+
+    <h3>Review Pembeli</h3>
+
+    <!-- REVIEW 1 -->
+    <div class="review-card">
+      <h4>⭐⭐⭐⭐⭐</h4>
+      <p>
+        "Bukunya lucu bangettt 😭💖  
+        packing rapi dan kualitas print bagus!"
+      </p>
+      <span>- Ainur, Turen</span>
+    </div>
+
+    <!-- REVIEW 2 -->
+    <div class="review-card">
+      <h4>⭐⭐⭐⭐⭐</h4>
+      <p>
+        "Nostalgia masa kecil 😭  
+        pengiriman cepet banget!"
+      </p>
+      <span>- Dayyana, Kedungkandang</span>
+    </div>
+
+    <!-- REVIEW 3 -->
+    <div class="review-card">
+      <h4>⭐⭐⭐⭐</h4>
+      <p>
+        "Admin ramah dan koleksinya lengkap 💕"
+      </p>
+      <span>- Arin, Lawang</span>
+    </div>
+
+        <!-- REVIEW 4 -->
+    <div class="review-card">
+      <h4>⭐⭐⭐⭐</h4>
+      <p>
+        " Webnya menarik dan koleksinya lengkap. Mau beli lagi kapan-kapan!"
+      </p>
+      <span>- Puca, Pacitan</span>
+    </div>
+
+        <!-- REVIEW 5 -->
+    <div class="review-card">
+      <h4>⭐Suggestion⭐</h4>
+      <p>
+        "Min, buka nailong store juga"
+      </p>
+      <span>- Zuzu, Sawojajar</span>
+    </div>
+  </div>
+</div>
+
+  <!-- ========= CONTENT ========= -->
+  <div class="content">
+
+    <h3>Buku Terlaris</h3>
+
+    <!-- PRODUK -->
+    <div class="produk">
+
+      <!-- Miiko 1 -->
+      <div class="card" onclick="addToCart('Miiko 1', 35000, 'Buku miiko 1.jpg')">
+
+        <button class="plus-btn">+</button>
+
+        <img src="Buku miiko 1.jpg">
+        <p>Miiko 1</p>
+        <span>Rp 35.000</span>
+      </div>
+
+      <!-- Miiko 2 -->
+      <div class="card" onclick="addToCart('Miiko 2', 35000, 'Buku miiko 2.jpg')">
+        
+        <button class="plus-btn">+</button>
+        <img src="Buku miiko 2.jpg">
+        <p>Miiko 2</p>
+        <span>Rp 35.000</span>
+      </div>
+
+      <!-- Miiko 3 -->
+      <div class="card" onclick="addToCart('Miiko 3', 35000, 'Buku miiko 3.jpg')">
+
+        <button class="plus-btn">+</button>
+        <img src="Buku miiko 3.jpg">
+        <p>Miiko 3</p>
+        <span>Rp 35.000</span>
+      </div>
+
+      <!-- Miiko 4 -->
+      <div class="card" onclick="addToCart('Miiko 4', 35000, 'Buku miiko 4.jpg')">
+        
+        <button class="plus-btn">+</button>
+        <img src="Buku miiko 4.jpg">
+        <p>Miiko 4</p>
+        <span>Rp 35.000</span>
+      </div>
+
+      <!-- Miiko 5 -->
+      <div class="card" onclick="addToCart('Miiko 5', 35000, 'Buku miiko 5.jpg')">
+        
+        <button class="plus-btn">+</button>
+        <img src="Buku miiko 5.jpg">
+        <p>Miiko 5</p>
+        <span>Rp 35.000</span>
+      </div>
+
+      <!-- Miiko 6 -->
+      <div class="card" onclick="addToCart('Miiko 6', 35000, 'Buku miiko 6.jpg')">
+        
+        <button class="plus-btn">+</button>
+        <img src="Buku miiko 6.jpg">
+        <p>Miiko 6</p>
+        <span>Rp 35.000</span>
+      </div>
+
+      <!-- Miiko 7 -->
+      <div class="card" onclick="addToCart('Miiko 7', 35000, 'Buku miiko 7.jpg')">
+        
+        <button class="plus-btn">+</button>
+        <img src="Buku miiko 7.jpg">
+        <p>Miiko 7</p>
+        <span>Rp 35.000</span>
+      </div>
+
+      <!-- Miiko 8 -->
+      <div class="card" onclick="addToCart('Miiko 8', 35000, 'Buku miiko 8.jpg')">
+        
+        <button class="plus-btn">+</button>
+        <img src="Buku miiko 8.jpg">
+        <p>Miiko 8</p>
+        <span>Rp 35.000</span>
+      </div>
+
+      <!-- Miiko 9 -->
+      <div class="card" onclick="addToCart('Miiko 9', 35000, 'Buku miiko 9.jpg')">
+        
+        <button class="plus-btn">+</button>
+        <img src="Buku miiko 9.jpg">
+        <p>Miiko 9</p>
+        <span>Rp 35.000</span>
+      </div>
+
+      <!-- Miiko 10 -->
+      <div class="card" onclick="addToCart('Miiko 10', 35000, 'Buku miiko 10.jpg')">
+        
+        <button class="plus-btn">+</button>
+        <img src="Buku miiko 10.jpg">
+        <p>Miiko 10</p>
+        <span>Rp 35.000</span>
+      </div>
+
+      <!-- Miiko 11 -->
+<div class="card" onclick="addToCart('Miiko 11', 35000, 'Buku miiko 11.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 11.jpg">
+  <p>Miiko 11</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 12 -->
+<div class="card" onclick="addToCart('Miiko 12', 35000, 'Buku miiko 12.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 12.jpg">
+  <p>Miiko 12</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 13 -->
+<div class="card" onclick="addToCart('Miiko 13', 35000, 'Buku miiko 13.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 13.jpg">
+  <p>Miiko 13</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 14 -->
+<div class="card" onclick="addToCart('Miiko 14', 35000, 'Buku miiko 14.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 14.jpg">
+  <p>Miiko 14</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 15 -->
+<div class="card" onclick="addToCart('Miiko 15', 35000, 'Buku miiko 15.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 15.jpg">
+  <p>Miiko 15</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 16 -->
+<div class="card" onclick="addToCart('Miiko 16', 35000, 'Buku miiko 16.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 16.jpg">
+  <p>Miiko 16</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 17 -->
+<div class="card" onclick="addToCart('Miiko 17', 35000, 'Buku miiko 17.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 17.jpg">
+  <p>Miiko 17</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 18 -->
+<div class="card" onclick="addToCart('Miiko 18', 35000, 'Buku miiko 18.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 18.jpg">
+  <p>Miiko 18</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 19 -->
+<div class="card" onclick="addToCart('Miiko 19', 35000, 'Buku miiko 19.jpg')">
+ 
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 19.jpg">
+  <p>Miiko 19</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 20 -->
+<div class="card" onclick="addToCart('Miiko 20', 35000, 'Buku miiko 20.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 20.jpg">
+  <p>Miiko 20</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 21 -->
+<div class="card" onclick="addToCart('Miiko 21', 35000, 'Buku miiko 21.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 21.jpg">
+  <p>Miiko 21</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 22 -->
+<div class="card" onclick="addToCart('Miiko 22', 35000, 'Buku miiko 22.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 22.jpg">
+  <p>Miiko 22</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 23 -->
+<div class="card" onclick="addToCart('Miiko 23', 35000, 'Buku miiko 23.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 23.jpg">
+  <p>Miiko 23</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 24 -->
+<div class="card" onclick="addToCart('Miiko 24', 35000, 'Buku miiko 24.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 24.jpg">
+  <p>Miiko 24</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 25 -->
+<div class="card" onclick="addToCart('Miiko 25', 35000, 'Buku miiko 25.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 25.jpg">
+  <p>Miiko 25</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 26 -->
+<div class="card" onclick="addToCart('Miiko 26', 35000, 'Buku miiko 26.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 26.jpg">
+  <p>Miiko 26</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 27 -->
+<div class="card" onclick="addToCart('Miiko 27', 35000, 'Buku miiko 27.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 27.jpg">
+  <p>Miiko 27</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 28 -->
+<div class="card" onclick="addToCart('Miiko 28', 35000, 'Buku miiko 28.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 28.jpg">
+  <p>Miiko 28</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 29 -->
+<div class="card" onclick="addToCart('Miiko 29', 35000, 'Buku miiko 29.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 29.jpg">
+  <p>Miiko 29</p>
+  <span>Rp 35.000</span>
+</div>
+
+<!-- Miiko 30 -->
+<div class="card" onclick="addToCart('Miiko 30', 35000, 'Buku miiko 30.jpg')">
+  
+  <button class="plus-btn">+</button>
+  <img src="Buku miiko 30.jpg">
+  <p>Miiko 30</p>
+  <span>Rp 35.000</span>
+</div>
+
+</div>
+<!-- ================= KATEGORI ================= -->
+<div class="kategori-container">
+
+  <div class="kategori-grid">
+
+    <!-- DUNIA MIIKO -->
+    <div class="kategori">
+      <h4>DUNIA MIIKO</h4>
+      <p>
+        Tentang Miiko | Kepribadian Miiko |
+        Kehidupan Sekolah | Cerita Sehari-hari |
+        Momen Lucu Miiko | Persahabatan |
+        Kehidupan Keluarga | Festival Sekolah |
+        Cerita Masa Kecil | Aktivitas Harian |
+        Kisah Mengharukan | Episode Favorit
+      </p>
+    </div>
+
+    <!-- SERIES -->
+    <div class="kategori">
+      <h4>SERIES HAI, MIIKO!</h4>
+      <p>
+        Volume 1 - 5 | Volume 6 - 10 |
+        Volume 11 - 15 | Volume 16 - 20 |
+        Volume 21 - 25 | Volume 26 - 30 |
+        Volume 31 - Tamat | Special Edition |
+        Bonus Chapter | Komik Anniversary |
+        Koleksi Lengkap Miiko
+      </p>
+    </div>
+
+    <!-- KARAKTER -->
+    <div class="kategori">
+      <h4>KARAKTER MIIKO</h4>
+      <p>
+        Miiko Yamada | Teman Sekolah |
+        Guru Miiko | Keluarga Miiko |
+        Karakter Favorit | Papa Miiko |
+        Mama Miiko | Yuka |
+        Tappei | Mari-chan |
+        Sahabat Miiko | Rival Miiko
+      </p>
+    </div>
+
+    <!-- KOMIK -->
+    <div class="kategori">
+      <h4>KOMIK PILIHAN</h4>
+      <p>
+        Volume Terpopuler | Volume Terbaru |
+        Cerita Terlucu | Cerita Favorit Pembaca |
+        Rekomendasi Admin | Episode Sedih |
+        Cerita Sekolah | Cerita Persahabatan |
+        Cerita Keluarga | Komik Viral |
+        Komik Rating Tertinggi
+      </p>
+    </div>
+
+    <!-- TAMBAHAN 1 -->
+    <div class="kategori">
+      <h4>PAKET KOLEKSI</h4>
+      <p>
+        Paket Hemat | Paket Lengkap |
+        Bundle Best Seller | Bundle Sekolah |
+        Paket Cerita Lucu | Koleksi Tamat |
+        Paket Favorit Pembaca |
+        Paket Limited Edition
+      </p>
+    </div>
+
+    <!-- TAMBAHAN 2 -->
+    <div class="kategori">
+      <h4>AKTIVITAS MIIKO</h4>
+      <p>
+        Bermain | Sekolah |
+        Persahabatan | Petualangan |
+        Kegiatan Sehari-hari |
+        Liburan Musim Panas |
+        Belajar Bersama |
+        Festival Budaya |
+        Cerita Olahraga
+      </p>
+    </div>
+
+    <!-- TAMBAHAN 3 -->
+    <div class="kategori">
+      <h4>PROMO & DISKON</h4>
+      <p>
+        Diskon Spesial | Flash Sale |
+        Bundle Murah | Promo Mingguan |
+        Cashback Miiko | Gratis Ongkir |
+        Promo Member Baru |
+        Diskon Akhir Pekan
+      </p>
+    </div>
+
+    <!-- TAMBAHAN 4 -->
+    <div class="kategori">
+      <h4>TENTANG TOKO</h4>
+      <p>
+        Tentang Kami | Cara Beli |
+        Testimoni Pembeli |
+        FAQ | Kontak |
+        Kebijakan Privasi |
+        Pengiriman | Pengembalian |
+        Bantuan Pelanggan
+      </p>
+    </div>
+
+  </div>
+
+</div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+
+    <div class="footer-container">
+
+      <!-- Footer Column -->
+      <div class="footer-col">
+        <h4>Layanan Pelanggan</h4>
+        <p>Bantuan</p>
+        <p>Metode Pembayaran</p>
+        <p>Lacak Pesanan</p>
+        <p>Pengembalian</p>
+        <p>Hubungi Kami</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Tentang Miiko</h4>
+        <p>Tentang Kami</p>
+        <p>Karir</p>
+        <p>Blog</p>
+        <p>Kebijakan Privasi</p>
+      </div>
+
+      <div class="footer-col">
+
+        <h4>Pembayaran</h4>
+
+        <div class="payment">
+          <span class="pay bca">BCA</span>
+          <span class="pay bni">BNI</span>
+          <span class="pay mandiri">MANDIRI</span>
+          <span class="pay ovo">OVO</span>
+          <span class="pay dana">DANA</span>
+        </div>
+
+        <h4>Pengiriman</h4>
+
+        <div class="shipping">
+          <span>JNE</span>
+          <span>J&T</span>
+          <span>SiCepat</span>
+          <span>AnterAja</span>
+        </div>
+
+      </div>
+
+      <div class="footer-col">
+        <h4>Ikuti Kami</h4>
+        <p>📘 Facebook</p>
+        <p>📸 Instagram</p>
+        <p>🐦 Twitter</p>
+      </div>
+
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <p>© 2026 Miiko Cutie Store!💖</p>
+    </div>
+
+  </footer>
+
+
+  <!-- ================= CREATOR BOX ================= -->
+<div class="creator-box">
+
+  <img src="Foto alfia kecil.JPG" class="creator-logo">
+
+  <h3>🌸 Created by Alfia Qubaila</h3>
+
+  <p>
+    “Dear miiko!”
+  </p>
+
+  <small>
+    こっちむいて！みい子 ✨ MiikoWorld 
+  </small>
+
+</div>
+
+  <!-- ================= SCRIPT ================= -->
+  <script>
+
+    // Language Modal
+    function setLanguage(lang) {
+      document.getElementById("languageModal").style.display = "none";
+      console.log("Bahasa dipilih:", lang);
+    }
+
+    // Cart Function
+    function addToCart(nama, harga, gambar) {
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      let existing = cart.find(item => item.nama === nama);
+
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({
+          nama: nama,
+          harga: harga,
+          gambar: gambar,
+          qty: 1
+        });
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      renderCart();
+    }
+
+    // Render Cart
+    function renderCart() {
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      const cartItems = document.getElementById("cartItems");
+      const cartTotal = document.getElementById("cartTotal");
+
+      cartItems.innerHTML = "";
+
+      let total = 0;
+
+      cart.forEach(item => {
+
+        total += item.harga * item.qty;
+
+        cartItems.innerHTML += `
+          <div class="cart-item">
+            <img src="${item.gambar}" width="50">
+            <div>
+              <p>${item.nama}</p>
+              <small>${item.qty} x Rp ${item.harga.toLocaleString('id-ID')}</small>
+            </div>
+          </div>
+        `;
+      });
+
+      cartTotal.textContent = total.toLocaleString('id-ID');
+    }
+
+    renderCart();
+
+  </script>
+
+</body>
+
+</html>
+
